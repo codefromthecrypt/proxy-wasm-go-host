@@ -19,85 +19,85 @@ package v2
 
 import "mosn.io/proxy-wasm-go-host/proxywasm/common"
 
-func RegisterImports(instance common.WasmInstance) {
-	_ = instance.RegisterFunc("env", "proxy_log", ProxyLog)
+func (a *ABIContext) RegisterImports() {
+	_ = a.Instance.RegisterFunc("env", "proxy_log", a.ProxyLog)
 
-	_ = instance.RegisterFunc("env", "proxy_set_effective_context", ProxySetEffectiveContext)
-	_ = instance.RegisterFunc("env", "proxy_context_finalize", ProxyContextFinalize)
+	_ = a.Instance.RegisterFunc("env", "proxy_set_effective_context", a.ProxySetEffectiveContext)
+	_ = a.Instance.RegisterFunc("env", "proxy_context_finalize", a.ProxyContextFinalize)
 
-	_ = instance.RegisterFunc("env", "proxy_resume_stream", ProxyResumeStream)
-	_ = instance.RegisterFunc("env", "proxy_close_stream", ProxyCloseStream)
+	_ = a.Instance.RegisterFunc("env", "proxy_resume_stream", a.ProxyResumeStream)
+	_ = a.Instance.RegisterFunc("env", "proxy_close_stream", a.ProxyCloseStream)
 
-	_ = instance.RegisterFunc("env", "proxy_send_http_response", ProxySendHttpResponse)
-	_ = instance.RegisterFunc("env", "proxy_resume_http_stream", ProxyResumeHttpStream)
-	_ = instance.RegisterFunc("env", "proxy_close_http_stream", ProxyCloseHttpStream)
+	_ = a.Instance.RegisterFunc("env", "proxy_send_http_response", a.ProxySendHttpResponse)
+	_ = a.Instance.RegisterFunc("env", "proxy_resume_http_stream", a.ProxyResumeHttpStream)
+	_ = a.Instance.RegisterFunc("env", "proxy_close_http_stream", a.ProxyCloseHttpStream)
 
-	_ = instance.RegisterFunc("env", "proxy_get_buffer_bytes", ProxyGetBuffer)
+	_ = a.Instance.RegisterFunc("env", "proxy_get_buffer_bytes", a.ProxyGetBuffer)
 
-	_ = instance.RegisterFunc("env", "proxy_get_buffer", ProxyGetBuffer)
-	_ = instance.RegisterFunc("env", "proxy_set_buffer", ProxySetBuffer)
+	_ = a.Instance.RegisterFunc("env", "proxy_get_buffer", a.ProxyGetBuffer)
+	_ = a.Instance.RegisterFunc("env", "proxy_set_buffer", a.ProxySetBuffer)
 
-	_ = instance.RegisterFunc("env", "proxy_get_header_map_pairs", ProxyGetHeaderMapPairs)
+	_ = a.Instance.RegisterFunc("env", "proxy_get_header_map_pairs", a.ProxyGetHeaderMapPairs)
 
-	_ = instance.RegisterFunc("env", "proxy_get_map_values", ProxyGetMapValues)
-	_ = instance.RegisterFunc("env", "proxy_set_map_values", ProxySetMapValues)
+	_ = a.Instance.RegisterFunc("env", "proxy_get_map_values", a.ProxyGetMapValues)
+	_ = a.Instance.RegisterFunc("env", "proxy_set_map_values", a.ProxySetMapValues)
 
-	_ = instance.RegisterFunc("env", "proxy_open_shared_kvstore", ProxyOpenSharedKvstore)
-	_ = instance.RegisterFunc("env", "proxy_get_shared_kvstore_key_values", ProxyGetSharedKvstoreKeyValues)
-	_ = instance.RegisterFunc("env", "proxy_set_shared_kvstore_key_values", ProxySetSharedKvstoreKeyValues)
-	_ = instance.RegisterFunc("env", "proxy_add_shared_kvstore_key_values", ProxyAddSharedKvstoreKeyValues)
-	_ = instance.RegisterFunc("env", "proxy_remove_shared_kvstore_key", ProxyRemoveSharedKvstoreKey)
-	_ = instance.RegisterFunc("env", "proxy_delete_shared_kvstore", ProxyDeleteSharedKvstore)
+	_ = a.Instance.RegisterFunc("env", "proxy_open_shared_kvstore", a.ProxyOpenSharedKvstore)
+	_ = a.Instance.RegisterFunc("env", "proxy_get_shared_kvstore_key_values", a.ProxyGetSharedKvstoreKeyValues)
+	_ = a.Instance.RegisterFunc("env", "proxy_set_shared_kvstore_key_values", a.ProxySetSharedKvstoreKeyValues)
+	_ = a.Instance.RegisterFunc("env", "proxy_add_shared_kvstore_key_values", a.ProxyAddSharedKvstoreKeyValues)
+	_ = a.Instance.RegisterFunc("env", "proxy_remove_shared_kvstore_key", a.ProxyRemoveSharedKvstoreKey)
+	_ = a.Instance.RegisterFunc("env", "proxy_delete_shared_kvstore", a.ProxyDeleteSharedKvstore)
 
-	_ = instance.RegisterFunc("env", "proxy_open_shared_queue", ProxyOpenSharedQueue)
-	_ = instance.RegisterFunc("env", "proxy_dequeue_shared_queue_item", ProxyDequeueSharedQueueItem)
-	_ = instance.RegisterFunc("env", "proxy_enqueue_shared_queue_item", ProxyEnqueueSharedQueueItem)
-	_ = instance.RegisterFunc("env", "proxy_delete_shared_queue", ProxyDeleteSharedQueue)
+	_ = a.Instance.RegisterFunc("env", "proxy_open_shared_queue", a.ProxyOpenSharedQueue)
+	_ = a.Instance.RegisterFunc("env", "proxy_dequeue_shared_queue_item", a.ProxyDequeueSharedQueueItem)
+	_ = a.Instance.RegisterFunc("env", "proxy_enqueue_shared_queue_item", a.ProxyEnqueueSharedQueueItem)
+	_ = a.Instance.RegisterFunc("env", "proxy_delete_shared_queue", a.ProxyDeleteSharedQueue)
 
-	_ = instance.RegisterFunc("env", "proxy_create_timer", ProxyCreateTimer)
-	_ = instance.RegisterFunc("env", "proxy_delete_timer", ProxyDeleteTimer)
+	_ = a.Instance.RegisterFunc("env", "proxy_create_timer", a.ProxyCreateTimer)
+	_ = a.Instance.RegisterFunc("env", "proxy_delete_timer", a.ProxyDeleteTimer)
 
-	_ = instance.RegisterFunc("env", "proxy_create_metric", ProxyCreateMetric)
-	_ = instance.RegisterFunc("env", "proxy_get_metric_value", ProxyGetMetricValue)
-	_ = instance.RegisterFunc("env", "proxy_set_metric_value", ProxySetMetricValue)
-	_ = instance.RegisterFunc("env", "proxy_increment_metric_value", ProxyIncrementMetricValue)
-	_ = instance.RegisterFunc("env", "proxy_delete_metric", ProxyDeleteMetric)
+	_ = a.Instance.RegisterFunc("env", "proxy_create_metric", a.ProxyCreateMetric)
+	_ = a.Instance.RegisterFunc("env", "proxy_get_metric_value", a.ProxyGetMetricValue)
+	_ = a.Instance.RegisterFunc("env", "proxy_set_metric_value", a.ProxySetMetricValue)
+	_ = a.Instance.RegisterFunc("env", "proxy_increment_metric_value", a.ProxyIncrementMetricValue)
+	_ = a.Instance.RegisterFunc("env", "proxy_delete_metric", a.ProxyDeleteMetric)
 
-	_ = instance.RegisterFunc("env", "proxy_http_call", ProxyDispatchHttpCall)
-	_ = instance.RegisterFunc("env", "proxy_dispatch_http_call", ProxyDispatchHttpCall)
+	_ = a.Instance.RegisterFunc("env", "proxy_http_call", a.ProxyDispatchHttpCall)
+	_ = a.Instance.RegisterFunc("env", "proxy_dispatch_http_call", a.ProxyDispatchHttpCall)
 
-	_ = instance.RegisterFunc("env", "proxy_dispatch_grpc_call", ProxyDispatchGrpcCall)
-	_ = instance.RegisterFunc("env", "proxy_open_grpc_stream", ProxyOpenGrpcStream)
-	_ = instance.RegisterFunc("env", "proxy_send_grpc_stream_message", ProxySendGrpcStreamMessage)
-	_ = instance.RegisterFunc("env", "proxy_cancel_grpc_call", ProxyCancelGrpcCall)
-	_ = instance.RegisterFunc("env", "proxy_close_grpc_call", ProxyCloseGrpcCall)
+	_ = a.Instance.RegisterFunc("env", "proxy_dispatch_grpc_call", a.ProxyDispatchGrpcCall)
+	_ = a.Instance.RegisterFunc("env", "proxy_open_grpc_stream", a.ProxyOpenGrpcStream)
+	_ = a.Instance.RegisterFunc("env", "proxy_send_grpc_stream_message", a.ProxySendGrpcStreamMessage)
+	_ = a.Instance.RegisterFunc("env", "proxy_cancel_grpc_call", a.ProxyCancelGrpcCall)
+	_ = a.Instance.RegisterFunc("env", "proxy_close_grpc_call", a.ProxyCloseGrpcCall)
 
-	_ = instance.RegisterFunc("env", "proxy_call_custom_function", ProxyCallCustomFunction)
+	_ = a.Instance.RegisterFunc("env", "proxy_call_custom_function", a.ProxyCallCustomFunction)
 }
 
-func ProxyLog(instance common.WasmInstance, logLevel int32, messageData int32, messageSize int32) Result {
-	msg, err := instance.GetMemory(uint64(messageData), uint64(messageSize))
+func (a *ABIContext) ProxyLog(logLevel int32, messageData int32, messageSize int32) Result {
+	msg, err := a.Instance.GetMemory(uint64(messageData), uint64(messageSize))
 	if err != nil {
 		return ResultInvalidMemoryAccess
 	}
 
-	callback := getImportHandler(instance)
+	callback := getImportHandler(a.Instance)
 
 	return callback.Log(LogLevel(logLevel), string(msg))
 }
 
-func ProxySetEffectiveContext(instance common.WasmInstance, contextID int32) Result {
-	callback := getImportHandler(instance)
+func (a *ABIContext) ProxySetEffectiveContext(contextID int32) Result {
+	callback := getImportHandler(a.Instance)
 	return callback.SetEffectiveContext(contextID)
 }
 
-func ProxyContextFinalize(instance common.WasmInstance) Result {
-	callback := getImportHandler(instance)
+func (a *ABIContext) ProxyContextFinalize() Result {
+	callback := getImportHandler(a.Instance)
 	return callback.ContextFinalize()
 }
 
-func ProxyResumeStream(instance common.WasmInstance, streamType StreamType) Result {
-	callback := getImportHandler(instance)
+func (a *ABIContext) ProxyResumeStream(streamType StreamType) Result {
+	callback := getImportHandler(a.Instance)
 	switch streamType {
 	case StreamTypeDownstream:
 		return callback.ResumeDownStream()
@@ -112,8 +112,8 @@ func ProxyResumeStream(instance common.WasmInstance, streamType StreamType) Resu
 	}
 }
 
-func ProxyCloseStream(instance common.WasmInstance, streamType StreamType) Result {
-	callback := getImportHandler(instance)
+func (a *ABIContext) ProxyCloseStream(streamType StreamType) Result {
+	callback := getImportHandler(a.Instance)
 	switch streamType {
 	case StreamTypeDownstream:
 		return callback.CloseDownStream()
@@ -128,27 +128,28 @@ func ProxyCloseStream(instance common.WasmInstance, streamType StreamType) Resul
 	}
 }
 
-func ProxySendHttpResponse(instance common.WasmInstance, responseCode int32, responseCodeDetailsData int32, responseCodeDetailsSize int32,
+func (a *ABIContext) ProxySendHttpResponse(responseCode int32, responseCodeDetailsData int32, responseCodeDetailsSize int32,
 	responseBodyData int32, responseBodySize int32, additionalHeadersMapData int32, additionalHeadersSize int32,
-	grpcStatus int32) Result {
-	respCodeDetail, err := instance.GetMemory(uint64(responseCodeDetailsData), uint64(responseCodeDetailsSize))
+	grpcStatus int32,
+) Result {
+	respCodeDetail, err := a.Instance.GetMemory(uint64(responseCodeDetailsData), uint64(responseCodeDetailsSize))
 	if err != nil {
 		return ResultInvalidMemoryAccess
 	}
 
-	respBody, err := instance.GetMemory(uint64(responseBodyData), uint64(responseBodySize))
+	respBody, err := a.Instance.GetMemory(uint64(responseBodyData), uint64(responseBodySize))
 	if err != nil {
 		return ResultInvalidMemoryAccess
 	}
 
-	additionalHeaderMapData, err := instance.GetMemory(uint64(additionalHeadersMapData), uint64(additionalHeadersSize))
+	additionalHeaderMapData, err := a.Instance.GetMemory(uint64(additionalHeadersMapData), uint64(additionalHeadersSize))
 	if err != nil {
 		return ResultInvalidMemoryAccess
 	}
 
 	additionalHeaderMap := common.DecodeMap(additionalHeaderMapData)
 
-	callback := getImportHandler(instance)
+	callback := getImportHandler(a.Instance)
 
 	return callback.SendHttpResp(responseCode,
 		common.NewIoBufferBytes(respCodeDetail),
@@ -156,8 +157,8 @@ func ProxySendHttpResponse(instance common.WasmInstance, responseCode int32, res
 		common.CommonHeader(additionalHeaderMap), grpcStatus)
 }
 
-func ProxyResumeHttpStream(instance common.WasmInstance, streamType StreamType) Result {
-	callback := getImportHandler(instance)
+func (a *ABIContext) ProxyResumeHttpStream(streamType StreamType) Result {
+	callback := getImportHandler(a.Instance)
 	switch streamType {
 	case StreamTypeHttpRequest:
 		return callback.ResumeHttpRequest()
@@ -167,8 +168,8 @@ func ProxyResumeHttpStream(instance common.WasmInstance, streamType StreamType) 
 	return ResultBadArgument
 }
 
-func ProxyCloseHttpStream(instance common.WasmInstance, streamType StreamType) Result {
-	callback := getImportHandler(instance)
+func (a *ABIContext) ProxyCloseHttpStream(streamType StreamType) Result {
+	callback := getImportHandler(a.Instance)
 	switch streamType {
 	case StreamTypeHttpRequest:
 		return callback.CloseHttpRequest()
@@ -178,8 +179,8 @@ func ProxyCloseHttpStream(instance common.WasmInstance, streamType StreamType) R
 	return ResultBadArgument
 }
 
-func GetBuffer(instance common.WasmInstance, bufferType BufferType) common.IoBuffer {
-	im := getImportHandler(instance)
+func (a *ABIContext) GetBuffer(bufferType BufferType) common.IoBuffer {
+	im := getImportHandler(a.Instance)
 
 	switch bufferType {
 	case BufferTypeHttpRequestBody:
@@ -203,9 +204,10 @@ func GetBuffer(instance common.WasmInstance, bufferType BufferType) common.IoBuf
 	}
 }
 
-func ProxyGetBuffer(instance common.WasmInstance, bufferType int32, offset int32, maxSize int32,
-	returnBufferData int32, returnBufferSize int32) Result {
-	buf := GetBuffer(instance, BufferType(bufferType))
+func (a *ABIContext) ProxyGetBuffer(bufferType int32, offset int32, maxSize int32,
+	returnBufferData int32, returnBufferSize int32,
+) Result {
+	buf := a.GetBuffer(BufferType(bufferType))
 	if buf == nil {
 		return ResultBadArgument
 	}
@@ -222,17 +224,18 @@ func ProxyGetBuffer(instance common.WasmInstance, bufferType int32, offset int32
 		maxSize = int32(buf.Len()) - offset
 	}
 
-	return copyIntoInstance(instance, buf.Bytes()[offset:offset+maxSize], returnBufferData, returnBufferSize)
+	return a.copyIntoInstance(buf.Bytes()[offset:offset+maxSize], returnBufferData, returnBufferSize)
 }
 
-func ProxySetBuffer(instance common.WasmInstance, bufferType BufferType, offset int32, size int32,
-	bufferData int32, bufferSize int32) Result {
-	buf := GetBuffer(instance, bufferType)
+func (a *ABIContext) ProxySetBuffer(bufferType BufferType, offset int32, size int32,
+	bufferData int32, bufferSize int32,
+) Result {
+	buf := a.GetBuffer(bufferType)
 	if buf == nil {
 		return ResultBadArgument
 	}
 
-	content, err := instance.GetMemory(uint64(bufferData), uint64(bufferSize))
+	content, err := a.Instance.GetMemory(uint64(bufferData), uint64(bufferSize))
 	if err != nil {
 		return ResultInvalidMemoryAccess
 	}
@@ -257,8 +260,8 @@ func ProxySetBuffer(instance common.WasmInstance, bufferType BufferType, offset 
 	return ResultOk
 }
 
-func GetMap(instance common.WasmInstance, mapType MapType) common.HeaderMap {
-	ctx := getImportHandler(instance)
+func (a *ABIContext) GetMap(mapType MapType) common.HeaderMap {
+	ctx := getImportHandler(a.Instance)
 
 	switch mapType {
 	case MapTypeHttpRequestHeaders:
@@ -337,8 +340,8 @@ func copyMapIntoInstance(m common.HeaderMap, instance common.WasmInstance, retur
 	return ResultOk
 }
 
-func ProxyGetHeaderMapPairs(instance common.WasmInstance, mapType int32, returnDataPtr int32, returnDataSize int32) int32 {
-	header := GetMap(instance, MapType(mapType))
+func (a *ABIContext) ProxyGetHeaderMapPairs(mapType int32, returnDataPtr int32, returnDataSize int32) int32 {
+	header := a.GetMap(MapType(mapType))
 	if header == nil {
 		return int32(ResultNotFound)
 	}
@@ -352,12 +355,12 @@ func ProxyGetHeaderMapPairs(instance common.WasmInstance, mapType int32, returnD
 		return true
 	})
 
-	addr, err := instance.Malloc(int32(totalBytesLen))
+	addr, err := a.Instance.Malloc(int32(totalBytesLen))
 	if err != nil {
 		return int32(ResultInvalidMemoryAccess)
 	}
 
-	err = instance.PutUint32(addr, uint32(len(cloneMap)))
+	err = a.Instance.PutUint32(addr, uint32(len(cloneMap)))
 	if err != nil {
 		return int32(ResultInvalidMemoryAccess)
 	}
@@ -366,28 +369,28 @@ func ProxyGetHeaderMapPairs(instance common.WasmInstance, mapType int32, returnD
 	dataPtr := lenPtr + uint64(8*len(cloneMap))
 
 	for k, v := range cloneMap {
-		_ = instance.PutUint32(lenPtr, uint32(len(k)))
+		_ = a.Instance.PutUint32(lenPtr, uint32(len(k)))
 		lenPtr += 4
-		_ = instance.PutUint32(lenPtr, uint32(len(v)))
+		_ = a.Instance.PutUint32(lenPtr, uint32(len(v)))
 		lenPtr += 4
 
-		_ = instance.PutMemory(dataPtr, uint64(len(k)), []byte(k))
+		_ = a.Instance.PutMemory(dataPtr, uint64(len(k)), []byte(k))
 		dataPtr += uint64(len(k))
-		_ = instance.PutByte(dataPtr, 0)
+		_ = a.Instance.PutByte(dataPtr, 0)
 		dataPtr++
 
-		_ = instance.PutMemory(dataPtr, uint64(len(v)), []byte(v))
+		_ = a.Instance.PutMemory(dataPtr, uint64(len(v)), []byte(v))
 		dataPtr += uint64(len(v))
-		_ = instance.PutByte(dataPtr, 0)
+		_ = a.Instance.PutByte(dataPtr, 0)
 		dataPtr++
 	}
 
-	err = instance.PutUint32(uint64(returnDataPtr), uint32(addr))
+	err = a.Instance.PutUint32(uint64(returnDataPtr), uint32(addr))
 	if err != nil {
 		return int32(ResultInvalidMemoryAccess)
 	}
 
-	err = instance.PutUint32(uint64(returnDataSize), uint32(totalBytesLen))
+	err = a.Instance.PutUint32(uint64(returnDataSize), uint32(totalBytesLen))
 	if err != nil {
 		return int32(ResultInvalidMemoryAccess)
 	}
@@ -395,19 +398,20 @@ func ProxyGetHeaderMapPairs(instance common.WasmInstance, mapType int32, returnD
 	return int32(ResultOk)
 }
 
-func ProxyGetMapValues(instance common.WasmInstance, mapType MapType, keysData int32, keysSize int32,
-	returnMapData int32, returnMapSize int32) Result {
-	m := GetMap(instance, mapType)
+func (a *ABIContext) ProxyGetMapValues(mapType MapType, keysData int32, keysSize int32,
+	returnMapData int32, returnMapSize int32,
+) Result {
+	m := a.GetMap(mapType)
 	if m == nil {
 		return ResultNotFound
 	}
 
 	if keysSize == 0 {
 		// If the list of keys is empty, then all key-values in the map are returned.
-		return copyMapIntoInstance(m, instance, returnMapData, returnMapSize)
+		return copyMapIntoInstance(m, a.Instance, returnMapData, returnMapSize)
 	}
 
-	key, err := instance.GetMemory(uint64(keysData), uint64(keysSize))
+	key, err := a.Instance.GetMemory(uint64(keysData), uint64(keysSize))
 	if err != nil {
 		return ResultInvalidMemoryAccess
 	}
@@ -420,18 +424,19 @@ func ProxyGetMapValues(instance common.WasmInstance, mapType MapType, keysData i
 		return ResultNotFound
 	}
 
-	return copyIntoInstance(instance, []byte(value), returnMapData, returnMapSize)
+	return a.copyIntoInstance([]byte(value), returnMapData, returnMapSize)
 }
 
-func ProxySetMapValues(instance common.WasmInstance, mapType MapType, removeKeysData int32, removeKeysSize int32,
-	mapData int32, mapSize int32) Result {
-	m := GetMap(instance, mapType)
+func (a *ABIContext) ProxySetMapValues(mapType MapType, removeKeysData int32, removeKeysSize int32,
+	mapData int32, mapSize int32,
+) Result {
+	m := a.GetMap(mapType)
 	if m == nil {
 		return ResultNotFound
 	}
 
 	// add new map data
-	newMapContent, err := instance.GetMemory(uint64(mapData), uint64(mapSize))
+	newMapContent, err := a.Instance.GetMemory(uint64(mapData), uint64(mapSize))
 	if err != nil {
 		return ResultInvalidMemoryAccess
 	}
@@ -443,7 +448,7 @@ func ProxySetMapValues(instance common.WasmInstance, mapType MapType, removeKeys
 	}
 
 	// remove unwanted data
-	key, err := instance.GetMemory(uint64(removeKeysData), uint64(removeKeysSize))
+	key, err := a.Instance.GetMemory(uint64(removeKeysData), uint64(removeKeysSize))
 	if err != nil {
 		return ResultInvalidMemoryAccess
 	}
@@ -454,9 +459,10 @@ func ProxySetMapValues(instance common.WasmInstance, mapType MapType, removeKeys
 	return ResultOk
 }
 
-func ProxyOpenSharedKvstore(instance common.WasmInstance, kvstoreNameData int32, kvstoreNameSize int32, createIfNotExist int32,
-	returnKvstoreID int32) Result {
-	kvstoreName, err := instance.GetMemory(uint64(kvstoreNameData), uint64(kvstoreNameSize))
+func (a *ABIContext) ProxyOpenSharedKvstore(kvstoreNameData int32, kvstoreNameSize int32, createIfNotExist int32,
+	returnKvstoreID int32,
+) Result {
+	kvstoreName, err := a.Instance.GetMemory(uint64(kvstoreNameData), uint64(kvstoreNameSize))
 	if err != nil {
 		return ResultInvalidMemoryAccess
 	}
@@ -464,14 +470,14 @@ func ProxyOpenSharedKvstore(instance common.WasmInstance, kvstoreNameData int32,
 		return ResultBadArgument
 	}
 
-	callback := getImportHandler(instance)
+	callback := getImportHandler(a.Instance)
 
 	kvStoreID, res := callback.OpenSharedKvstore(string(kvstoreName), intToBool(createIfNotExist))
 	if res != ResultOk {
 		return res
 	}
 
-	err = instance.PutUint32(uint64(returnKvstoreID), kvStoreID)
+	err = a.Instance.PutUint32(uint64(returnKvstoreID), kvStoreID)
 	if err != nil {
 		return ResultInvalidMemoryAccess
 	}
@@ -479,16 +485,17 @@ func ProxyOpenSharedKvstore(instance common.WasmInstance, kvstoreNameData int32,
 	return ResultOk
 }
 
-func ProxyGetSharedKvstoreKeyValues(instance common.WasmInstance, kvstoreID int32, keyData int32, keySize int32,
-	returnValuesData int32, returnValuesSize int32, returnCas int32) Result {
-	callback := getImportHandler(instance)
+func (a *ABIContext) ProxyGetSharedKvstoreKeyValues(kvstoreID int32, keyData int32, keySize int32,
+	returnValuesData int32, returnValuesSize int32, returnCas int32,
+) Result {
+	callback := getImportHandler(a.Instance)
 
 	kvstore := callback.GetSharedKvstore(uint32(kvstoreID))
 	if kvstore == nil {
 		return ResultBadArgument
 	}
 
-	key, err := instance.GetMemory(uint64(keyData), uint64(keySize))
+	key, err := a.Instance.GetMemory(uint64(keyData), uint64(keySize))
 	if err != nil {
 		return ResultInvalidMemoryAccess
 	}
@@ -501,19 +508,20 @@ func ProxyGetSharedKvstoreKeyValues(instance common.WasmInstance, kvstoreID int3
 		return ResultNotFound
 	}
 
-	return copyIntoInstance(instance, []byte(value), returnValuesData, returnValuesSize)
+	return a.copyIntoInstance([]byte(value), returnValuesData, returnValuesSize)
 }
 
-func ProxySetSharedKvstoreKeyValues(instance common.WasmInstance, kvstoreID int32, keyData int32, keySize int32,
-	valuesData int32, valuesSize int32, cas int32) Result {
-	callback := getImportHandler(instance)
+func (a *ABIContext) ProxySetSharedKvstoreKeyValues(kvstoreID int32, keyData int32, keySize int32,
+	valuesData int32, valuesSize int32, cas int32,
+) Result {
+	callback := getImportHandler(a.Instance)
 
 	kvstore := callback.GetSharedKvstore(uint32(kvstoreID))
 	if kvstore == nil {
 		return ResultBadArgument
 	}
 
-	key, err := instance.GetMemory(uint64(keyData), uint64(keySize))
+	key, err := a.Instance.GetMemory(uint64(keyData), uint64(keySize))
 	if err != nil {
 		return ResultInvalidMemoryAccess
 	}
@@ -521,7 +529,7 @@ func ProxySetSharedKvstoreKeyValues(instance common.WasmInstance, kvstoreID int3
 		return ResultBadArgument
 	}
 
-	value, err := instance.GetMemory(uint64(valuesData), uint64(valuesSize))
+	value, err := a.Instance.GetMemory(uint64(valuesData), uint64(valuesSize))
 	if err != nil {
 		return ResultInvalidMemoryAccess
 	}
@@ -534,16 +542,17 @@ func ProxySetSharedKvstoreKeyValues(instance common.WasmInstance, kvstoreID int3
 	return ResultOk
 }
 
-func ProxyAddSharedKvstoreKeyValues(instance common.WasmInstance, kvstoreID int32, keyData int32, keySize int32,
-	valuesData int32, valuesSize int32, cas int32) Result {
-	callback := getImportHandler(instance)
+func (a *ABIContext) ProxyAddSharedKvstoreKeyValues(kvstoreID int32, keyData int32, keySize int32,
+	valuesData int32, valuesSize int32, cas int32,
+) Result {
+	callback := getImportHandler(a.Instance)
 
 	kvstore := callback.GetSharedKvstore(uint32(kvstoreID))
 	if kvstore == nil {
 		return ResultBadArgument
 	}
 
-	key, err := instance.GetMemory(uint64(keyData), uint64(keySize))
+	key, err := a.Instance.GetMemory(uint64(keyData), uint64(keySize))
 	if err != nil {
 		return ResultInvalidMemoryAccess
 	}
@@ -551,7 +560,7 @@ func ProxyAddSharedKvstoreKeyValues(instance common.WasmInstance, kvstoreID int3
 		return ResultBadArgument
 	}
 
-	value, err := instance.GetMemory(uint64(valuesData), uint64(valuesSize))
+	value, err := a.Instance.GetMemory(uint64(valuesData), uint64(valuesSize))
 	if err != nil {
 		return ResultInvalidMemoryAccess
 	}
@@ -564,15 +573,15 @@ func ProxyAddSharedKvstoreKeyValues(instance common.WasmInstance, kvstoreID int3
 	return ResultOk
 }
 
-func ProxyRemoveSharedKvstoreKey(instance common.WasmInstance, kvstoreID int32, keyData int32, keySize int32, cas int32) Result {
-	callback := getImportHandler(instance)
+func (a *ABIContext) ProxyRemoveSharedKvstoreKey(kvstoreID int32, keyData int32, keySize int32, cas int32) Result {
+	callback := getImportHandler(a.Instance)
 
 	kvstore := callback.GetSharedKvstore(uint32(kvstoreID))
 	if kvstore == nil {
 		return ResultBadArgument
 	}
 
-	key, err := instance.GetMemory(uint64(keyData), uint64(keySize))
+	key, err := a.Instance.GetMemory(uint64(keyData), uint64(keySize))
 	if err != nil {
 		return ResultInvalidMemoryAccess
 	}
@@ -588,14 +597,15 @@ func ProxyRemoveSharedKvstoreKey(instance common.WasmInstance, kvstoreID int32, 
 	return ResultOk
 }
 
-func ProxyDeleteSharedKvstore(instance common.WasmInstance, kvstoreID int32) Result {
-	callback := getImportHandler(instance)
+func (a *ABIContext) ProxyDeleteSharedKvstore(kvstoreID int32) Result {
+	callback := getImportHandler(a.Instance)
 	return callback.DeleteSharedKvstore(uint32(kvstoreID))
 }
 
-func ProxyOpenSharedQueue(instance common.WasmInstance, queueNameData int32, queueNameSize int32, createIfNotExist int32,
-	returnQueueID int32) Result {
-	queueName, err := instance.GetMemory(uint64(queueNameData), uint64(queueNameSize))
+func (a *ABIContext) ProxyOpenSharedQueue(queueNameData int32, queueNameSize int32, createIfNotExist int32,
+	returnQueueID int32,
+) Result {
+	queueName, err := a.Instance.GetMemory(uint64(queueNameData), uint64(queueNameSize))
 	if err != nil {
 		return ResultInvalidMemoryAccess
 	}
@@ -603,14 +613,14 @@ func ProxyOpenSharedQueue(instance common.WasmInstance, queueNameData int32, que
 		return ResultBadArgument
 	}
 
-	callback := getImportHandler(instance)
+	callback := getImportHandler(a.Instance)
 
 	queueID, res := callback.OpenSharedQueue(string(queueName), intToBool(createIfNotExist))
 	if res != ResultOk {
 		return res
 	}
 
-	err = instance.PutUint32(uint64(returnQueueID), queueID)
+	err = a.Instance.PutUint32(uint64(returnQueueID), queueID)
 	if err != nil {
 		return ResultInvalidMemoryAccess
 	}
@@ -618,42 +628,42 @@ func ProxyOpenSharedQueue(instance common.WasmInstance, queueNameData int32, que
 	return ResultOk
 }
 
-func ProxyDequeueSharedQueueItem(instance common.WasmInstance, queueID int32, returnPayloadData int32, returnPayloadSize int32) Result {
-	callback := getImportHandler(instance)
+func (a *ABIContext) ProxyDequeueSharedQueueItem(queueID int32, returnPayloadData int32, returnPayloadSize int32) Result {
+	callback := getImportHandler(a.Instance)
 
 	value, res := callback.DequeueSharedQueueItem(uint32(queueID))
 	if res != ResultOk {
 		return res
 	}
 
-	return copyIntoInstance(instance, []byte(value), returnPayloadData, returnPayloadSize)
+	return a.copyIntoInstance([]byte(value), returnPayloadData, returnPayloadSize)
 }
 
-func ProxyEnqueueSharedQueueItem(instance common.WasmInstance, queueID int32, payloadData int32, payloadSize int32) Result {
-	value, err := instance.GetMemory(uint64(payloadData), uint64(payloadSize))
+func (a *ABIContext) ProxyEnqueueSharedQueueItem(queueID int32, payloadData int32, payloadSize int32) Result {
+	value, err := a.Instance.GetMemory(uint64(payloadData), uint64(payloadSize))
 	if err != nil {
 		return ResultInvalidMemoryAccess
 	}
 
-	callback := getImportHandler(instance)
+	callback := getImportHandler(a.Instance)
 
 	return callback.EnqueueSharedQueueItem(uint32(queueID), string(value))
 }
 
-func ProxyDeleteSharedQueue(instance common.WasmInstance, queueID int32) Result {
-	callback := getImportHandler(instance)
+func (a *ABIContext) ProxyDeleteSharedQueue(queueID int32) Result {
+	callback := getImportHandler(a.Instance)
 	return callback.DeleteSharedQueue(uint32(queueID))
 }
 
-func ProxyCreateTimer(instance common.WasmInstance, period int32, oneTime int32, returnTimerID int32) Result {
-	callback := getImportHandler(instance)
+func (a *ABIContext) ProxyCreateTimer(period int32, oneTime int32, returnTimerID int32) Result {
+	callback := getImportHandler(a.Instance)
 
 	timerID, res := callback.CreateTimer(period, intToBool(oneTime))
 	if res != ResultOk {
 		return res
 	}
 
-	err := instance.PutUint32(uint64(returnTimerID), timerID)
+	err := a.Instance.PutUint32(uint64(returnTimerID), timerID)
 	if err != nil {
 		return ResultInvalidMemoryAccess
 	}
@@ -661,16 +671,17 @@ func ProxyCreateTimer(instance common.WasmInstance, period int32, oneTime int32,
 	return ResultOk
 }
 
-func ProxyDeleteTimer(instance common.WasmInstance, timerID int32) Result {
-	callback := getImportHandler(instance)
+func (a *ABIContext) ProxyDeleteTimer(timerID int32) Result {
+	callback := getImportHandler(a.Instance)
 	return callback.DeleteTimer(uint32(timerID))
 }
 
-func ProxyCreateMetric(instance common.WasmInstance, metricType MetricType,
-	metricNameData int32, metricNameSize int32, returnMetricID int32) Result {
-	ctx := getImportHandler(instance)
+func (a *ABIContext) ProxyCreateMetric(metricType MetricType,
+	metricNameData int32, metricNameSize int32, returnMetricID int32,
+) Result {
+	ctx := getImportHandler(a.Instance)
 
-	name, err := instance.GetMemory(uint64(metricNameData), uint64(metricNameSize))
+	name, err := a.Instance.GetMemory(uint64(metricNameData), uint64(metricNameSize))
 	if err != nil {
 		return ResultInvalidMemoryAccess
 	}
@@ -683,7 +694,7 @@ func ProxyCreateMetric(instance common.WasmInstance, metricType MetricType,
 		return res
 	}
 
-	err = instance.PutUint32(uint64(returnMetricID), mid)
+	err = a.Instance.PutUint32(uint64(returnMetricID), mid)
 	if err != nil {
 		return ResultInvalidMemoryAccess
 	}
@@ -691,15 +702,15 @@ func ProxyCreateMetric(instance common.WasmInstance, metricType MetricType,
 	return ResultOk
 }
 
-func ProxyGetMetricValue(instance common.WasmInstance, metricID int32, returnValue int32) Result {
-	ctx := getImportHandler(instance)
+func (a *ABIContext) ProxyGetMetricValue(metricID int32, returnValue int32) Result {
+	ctx := getImportHandler(a.Instance)
 
 	value, res := ctx.GetMetricValue(uint32(metricID))
 	if res != ResultOk {
 		return res
 	}
 
-	err := instance.PutUint32(uint64(returnValue), uint32(value))
+	err := a.Instance.PutUint32(uint64(returnValue), uint32(value))
 	if err != nil {
 		return ResultInvalidMemoryAccess
 	}
@@ -707,48 +718,49 @@ func ProxyGetMetricValue(instance common.WasmInstance, metricID int32, returnVal
 	return ResultOk
 }
 
-func ProxySetMetricValue(instance common.WasmInstance, metricID int32, value int64) Result {
-	ctx := getImportHandler(instance)
+func (a *ABIContext) ProxySetMetricValue(metricID int32, value int64) Result {
+	ctx := getImportHandler(a.Instance)
 	res := ctx.SetMetricValue(uint32(metricID), value)
 	return res
 }
 
-func ProxyIncrementMetricValue(instance common.WasmInstance, metricID int32, offset int64) Result {
-	ctx := getImportHandler(instance)
+func (a *ABIContext) ProxyIncrementMetricValue(metricID int32, offset int64) Result {
+	ctx := getImportHandler(a.Instance)
 	return ctx.IncrementMetricValue(uint32(metricID), offset)
 }
 
-func ProxyDeleteMetric(instance common.WasmInstance, metricID int32) Result {
-	ctx := getImportHandler(instance)
+func (a *ABIContext) ProxyDeleteMetric(metricID int32) Result {
+	ctx := getImportHandler(a.Instance)
 	return ctx.DeleteMetric(uint32(metricID))
 }
 
-func ProxyDispatchHttpCall(instance common.WasmInstance, upstreamNameData int32, upstreamNameSize int32, headersMapData int32, headersMapSize int32,
+func (a *ABIContext) ProxyDispatchHttpCall(upstreamNameData int32, upstreamNameSize int32, headersMapData int32, headersMapSize int32,
 	bodyData int32, bodySize int32, trailersMapData int32, trailersMapSize int32, timeoutMilliseconds int32,
-	returnCalloutID int32) Result {
-	upstream, err := instance.GetMemory(uint64(upstreamNameData), uint64(upstreamNameSize))
+	returnCalloutID int32,
+) Result {
+	upstream, err := a.Instance.GetMemory(uint64(upstreamNameData), uint64(upstreamNameSize))
 	if err != nil {
 		return ResultInvalidMemoryAccess
 	}
 
-	headerMapData, err := instance.GetMemory(uint64(headersMapData), uint64(headersMapSize))
+	headerMapData, err := a.Instance.GetMemory(uint64(headersMapData), uint64(headersMapSize))
 	if err != nil {
 		return ResultInvalidMemoryAccess
 	}
 	headerMap := common.DecodeMap(headerMapData)
 
-	body, err := instance.GetMemory(uint64(bodyData), uint64(bodySize))
+	body, err := a.Instance.GetMemory(uint64(bodyData), uint64(bodySize))
 	if err != nil {
 		return ResultInvalidMemoryAccess
 	}
 
-	trailerMapData, err := instance.GetMemory(uint64(trailersMapData), uint64(trailersMapSize))
+	trailerMapData, err := a.Instance.GetMemory(uint64(trailersMapData), uint64(trailersMapSize))
 	if err != nil {
 		return ResultInvalidMemoryAccess
 	}
 	trailerMap := common.DecodeMap(trailerMapData)
 
-	ctx := getImportHandler(instance)
+	ctx := getImportHandler(a.Instance)
 
 	calloutID, res := ctx.DispatchHttpCall(string(upstream),
 		common.CommonHeader(headerMap), common.NewIoBufferBytes(body), common.CommonHeader(trailerMap),
@@ -758,7 +770,7 @@ func ProxyDispatchHttpCall(instance common.WasmInstance, upstreamNameData int32,
 		return res
 	}
 
-	err = instance.PutUint32(uint64(returnCalloutID), calloutID)
+	err = a.Instance.PutUint32(uint64(returnCalloutID), calloutID)
 	if err != nil {
 		return ResultInvalidMemoryAccess
 	}
@@ -766,36 +778,37 @@ func ProxyDispatchHttpCall(instance common.WasmInstance, upstreamNameData int32,
 	return ResultOk
 }
 
-func ProxyDispatchGrpcCall(instance common.WasmInstance, upstreamNameData int32, upstreamNameSize int32, serviceNameData int32, serviceNameSize int32,
+func (a *ABIContext) ProxyDispatchGrpcCall(upstreamNameData int32, upstreamNameSize int32, serviceNameData int32, serviceNameSize int32,
 	serviceMethodData int32, serviceMethodSize int32, initialMetadataMapData int32, initialMetadataMapSize int32,
-	grpcMessageData int32, grpcMessageSize int32, timeoutMilliseconds int32, returnCalloutID int32) Result {
-	upstream, err := instance.GetMemory(uint64(upstreamNameData), uint64(upstreamNameSize))
+	grpcMessageData int32, grpcMessageSize int32, timeoutMilliseconds int32, returnCalloutID int32,
+) Result {
+	upstream, err := a.Instance.GetMemory(uint64(upstreamNameData), uint64(upstreamNameSize))
 	if err != nil {
 		return ResultInvalidMemoryAccess
 	}
 
-	serviceName, err := instance.GetMemory(uint64(serviceNameData), uint64(serviceNameSize))
+	serviceName, err := a.Instance.GetMemory(uint64(serviceNameData), uint64(serviceNameSize))
 	if err != nil {
 		return ResultInvalidMemoryAccess
 	}
 
-	serviceMethod, err := instance.GetMemory(uint64(serviceMethodData), uint64(serviceMethodSize))
+	serviceMethod, err := a.Instance.GetMemory(uint64(serviceMethodData), uint64(serviceMethodSize))
 	if err != nil {
 		return ResultInvalidMemoryAccess
 	}
 
-	initialMetaMapdata, err := instance.GetMemory(uint64(initialMetadataMapData), uint64(initialMetadataMapSize))
+	initialMetaMapdata, err := a.Instance.GetMemory(uint64(initialMetadataMapData), uint64(initialMetadataMapSize))
 	if err != nil {
 		return ResultInvalidMemoryAccess
 	}
 	initialMetadataMap := common.DecodeMap(initialMetaMapdata)
 
-	msg, err := instance.GetMemory(uint64(grpcMessageData), uint64(grpcMessageSize))
+	msg, err := a.Instance.GetMemory(uint64(grpcMessageData), uint64(grpcMessageSize))
 	if err != nil {
 		return ResultInvalidMemoryAccess
 	}
 
-	ctx := getImportHandler(instance)
+	ctx := getImportHandler(a.Instance)
 
 	calloutID, res := ctx.DispatchGrpcCall(string(upstream), string(serviceName), string(serviceMethod),
 		common.CommonHeader(initialMetadataMap), common.NewIoBufferBytes(msg), uint32(timeoutMilliseconds))
@@ -803,7 +816,7 @@ func ProxyDispatchGrpcCall(instance common.WasmInstance, upstreamNameData int32,
 		return res
 	}
 
-	err = instance.PutUint32(uint64(returnCalloutID), calloutID)
+	err = a.Instance.PutUint32(uint64(returnCalloutID), calloutID)
 	if err != nil {
 		return ResultInvalidMemoryAccess
 	}
@@ -811,38 +824,39 @@ func ProxyDispatchGrpcCall(instance common.WasmInstance, upstreamNameData int32,
 	return ResultOk
 }
 
-func ProxyOpenGrpcStream(instance common.WasmInstance, upstreamNameData int32, upstreamNameSize int32, serviceNameData int32, serviceNameSize int32,
+func (a *ABIContext) ProxyOpenGrpcStream(upstreamNameData int32, upstreamNameSize int32, serviceNameData int32, serviceNameSize int32,
 	serviceMethodData int32, serviceMethodSize int32, initialMetadataMapData int32, initialMetadataMapSize int32,
-	returnCalloutID int32) Result {
-	upstream, err := instance.GetMemory(uint64(upstreamNameData), uint64(upstreamNameSize))
+	returnCalloutID int32,
+) Result {
+	upstream, err := a.Instance.GetMemory(uint64(upstreamNameData), uint64(upstreamNameSize))
 	if err != nil {
 		return ResultInvalidMemoryAccess
 	}
 
-	serviceName, err := instance.GetMemory(uint64(serviceNameData), uint64(serviceNameSize))
+	serviceName, err := a.Instance.GetMemory(uint64(serviceNameData), uint64(serviceNameSize))
 	if err != nil {
 		return ResultInvalidMemoryAccess
 	}
 
-	serviceMethod, err := instance.GetMemory(uint64(serviceMethodData), uint64(serviceMethodSize))
+	serviceMethod, err := a.Instance.GetMemory(uint64(serviceMethodData), uint64(serviceMethodSize))
 	if err != nil {
 		return ResultInvalidMemoryAccess
 	}
 
-	initialMetaMapdata, err := instance.GetMemory(uint64(initialMetadataMapData), uint64(initialMetadataMapSize))
+	initialMetaMapdata, err := a.Instance.GetMemory(uint64(initialMetadataMapData), uint64(initialMetadataMapSize))
 	if err != nil {
 		return ResultInvalidMemoryAccess
 	}
 	initialMetadataMap := common.DecodeMap(initialMetaMapdata)
 
-	ctx := getImportHandler(instance)
+	ctx := getImportHandler(a.Instance)
 
 	calloutID, res := ctx.OpenGrpcStream(string(upstream), string(serviceName), string(serviceMethod), common.CommonHeader(initialMetadataMap))
 	if res != ResultOk {
 		return res
 	}
 
-	err = instance.PutUint32(uint64(returnCalloutID), calloutID)
+	err = a.Instance.PutUint32(uint64(returnCalloutID), calloutID)
 	if err != nil {
 		return ResultInvalidMemoryAccess
 	}
@@ -850,40 +864,40 @@ func ProxyOpenGrpcStream(instance common.WasmInstance, upstreamNameData int32, u
 	return ResultOk
 }
 
-func ProxySendGrpcStreamMessage(instance common.WasmInstance, calloutID int32, grpcMessageData int32, grpcMessageSize int32) Result {
-	grpcMessage, err := instance.GetMemory(uint64(grpcMessageData), uint64(grpcMessageSize))
+func (a *ABIContext) ProxySendGrpcStreamMessage(calloutID int32, grpcMessageData int32, grpcMessageSize int32) Result {
+	grpcMessage, err := a.Instance.GetMemory(uint64(grpcMessageData), uint64(grpcMessageSize))
 	if err != nil {
 		return ResultInvalidMemoryAccess
 	}
 
-	ctx := getImportHandler(instance)
+	ctx := getImportHandler(a.Instance)
 	return ctx.SendGrpcStreamMessage(uint32(calloutID), common.NewIoBufferBytes(grpcMessage))
 }
 
-func ProxyCancelGrpcCall(instance common.WasmInstance, calloutID int32) Result {
-	callback := getImportHandler(instance)
+func (a *ABIContext) ProxyCancelGrpcCall(calloutID int32) Result {
+	callback := getImportHandler(a.Instance)
 	return callback.CancelGrpcCall(uint32(calloutID))
 }
 
-func ProxyCloseGrpcCall(instance common.WasmInstance, calloutID int32) Result {
-	callback := getImportHandler(instance)
+func (a *ABIContext) ProxyCloseGrpcCall(calloutID int32) Result {
+	callback := getImportHandler(a.Instance)
 	return callback.CloseGrpcCall(uint32(calloutID))
 }
 
-func ProxyCallCustomFunction(instance common.WasmInstance, customFunctionID int32, parametersData int32, parametersSize int32,
-	returnResultsData int32, returnResultsSize int32) Result {
-
-	param, err := instance.GetMemory(uint64(parametersData), uint64(parametersSize))
+func (a *ABIContext) ProxyCallCustomFunction(customFunctionID int32, parametersData int32, parametersSize int32,
+	returnResultsData int32, returnResultsSize int32,
+) Result {
+	param, err := a.Instance.GetMemory(uint64(parametersData), uint64(parametersSize))
 	if err != nil {
 		return ResultInvalidMemoryAccess
 	}
 
-	ctx := getImportHandler(instance)
+	ctx := getImportHandler(a.Instance)
 
 	ret, res := ctx.CallCustomFunction(uint32(customFunctionID), string(param))
 	if res != ResultOk {
 		return res
 	}
 
-	return copyIntoInstance(instance, []byte(ret), returnResultsData, returnResultsSize)
+	return a.copyIntoInstance([]byte(ret), returnResultsData, returnResultsSize)
 }

@@ -26,23 +26,23 @@ func intToBool(i int32) bool {
 	return true
 }
 
-func copyIntoInstance(instance common.WasmInstance, value []byte, retPtr int32, retSize int32) Result {
-	addr, err := instance.Malloc(int32(len(value)))
+func (a *ABIContext) copyIntoInstance(value []byte, retPtr int32, retSize int32) Result {
+	addr, err := a.Instance.Malloc(int32(len(value)))
 	if err != nil {
 		return ResultInvalidMemoryAccess
 	}
 
-	err = instance.PutMemory(addr, uint64(len(value)), value)
+	err = a.Instance.PutMemory(addr, uint64(len(value)), value)
 	if err != nil {
 		return ResultInvalidMemoryAccess
 	}
 
-	err = instance.PutUint32(uint64(retPtr), uint32(addr))
+	err = a.Instance.PutUint32(uint64(retPtr), uint32(addr))
 	if err != nil {
 		return ResultInvalidMemoryAccess
 	}
 
-	err = instance.PutUint32(uint64(retSize), uint32(len(value)))
+	err = a.Instance.PutUint32(uint64(retSize), uint32(len(value)))
 	if err != nil {
 		return ResultInvalidMemoryAccess
 	}

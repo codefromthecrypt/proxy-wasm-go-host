@@ -15,51 +15,30 @@
  * limitations under the License.
  */
 
-package v1
+package wazero
 
 import (
+	"os"
+	"path/filepath"
+
 	"mosn.io/proxy-wasm-go-host/proxywasm/common"
 )
 
-const ProxyWasmABI_0_1_0 string = "proxy_abi_version_0_1_0"
+func NewInstanceFromFile(path string) common.WasmInstance {
+	wasmBytes, err := os.ReadFile(filepath.Clean(path))
+	if err != nil {
+		panic(err)
+	}
 
-type ContextHandler interface {
-	Name() string
-
-	GetImports() ImportsHandler
-	SetImports(imports ImportsHandler)
-
-	GetExports() Exports
-
-	GetInstance() common.WasmInstance
-	SetInstance(instance common.WasmInstance)
+	return NewInstanceFromBinary(wasmBytes)
 }
 
-type ABIContext struct {
-	Imports  ImportsHandler
-	Instance common.WasmInstance
-}
+func NewInstanceFromBinary(wasmBytes []byte) common.WasmInstance {
+	vm := NewVM()
 
-func (a *ABIContext) Name() string {
-	return ProxyWasmABI_0_1_0
-}
+	module := vm.NewModule(wasmBytes)
 
-func (a *ABIContext) GetExports() Exports {
-	return a
-}
+	instance := module.NewInstance()
 
-func (a *ABIContext) GetImports() ImportsHandler {
-	return a.Imports
-}
-
-func (a *ABIContext) SetImports(imports ImportsHandler) {
-	a.Imports = imports
-}
-
-func (a *ABIContext) GetInstance() common.WasmInstance {
-	return a.Instance
-}
-
-func (a *ABIContext) SetInstance(instance common.WasmInstance) {
-	a.Instance = instance
+	return instance
 }

@@ -15,36 +15,46 @@
  * limitations under the License.
  */
 
-package main
+package wazero
 
 import (
-	"net/http"
+	"context"
+
+	wazero "github.com/tetratelabs/wazero"
 
 	"mosn.io/proxy-wasm-go-host/proxywasm/common"
 )
 
-// wrapper for http.Header, convert Header to api.HeaderMap.
-type myHeaderMap struct {
-	realMap http.Header
+type VM struct {
+	engine wazero.Runtime
 }
 
-func (m *myHeaderMap) Get(key string) (string, bool) {
-	return m.realMap.Get(key), true
+func NewVM() common.WasmVM {
+	vm := &VM{}
+	vm.Init()
+
+	return vm
 }
 
-func (m *myHeaderMap) Set(key, value string) { panic("implemented") }
+func (w *VM) Name() string {
+	return "wazero"
+}
 
-func (m *myHeaderMap) Add(key, value string) { panic("implemented") }
+var ctx = context.Background()
 
-func (m *myHeaderMap) Del(key string) { panic("implemented") }
+func (w *VM) Init() {
+	w.engine = wazero.NewRuntime(ctx)
+}
 
-func (m *myHeaderMap) Range(f func(key string, value string) bool) {
-	for k, _ := range m.realMap {
-		v := m.realMap.Get(k)
-		f(k, v)
+func (w *VM) NewModule(wasmBytes []byte) common.WasmModule {
+	if len(wasmBytes) == 0 {
+		return nil
 	}
+
+	m, err := w.engine.CompileModule(ctx, wasmBytes)
+	if err != nil {
+		return nil
+	}
+
+	return NewModule(w, m, wasmBytes)
 }
-
-func (m *myHeaderMap) Clone() common.HeaderMap { panic("implemented") }
-
-func (m *myHeaderMap) ByteSize() uint64 { panic("implemented") }

@@ -1,3 +1,5 @@
+//go:build wasmer
+
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -14,7 +16,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package wasmer
 
 import (
@@ -26,6 +27,7 @@ import (
 	"sync/atomic"
 
 	wasmerGo "github.com/wasmerio/wasmer-go/wasmer"
+
 	"mosn.io/proxy-wasm-go-host/proxywasm/common"
 )
 
@@ -60,7 +62,7 @@ type Instance struct {
 
 type InstanceOptions func(instance *Instance)
 
-func NewWasmerInstance(vm *VM, module *Module, options ...InstanceOptions) *Instance {
+func NewInstance(vm *VM, module *Module, options ...InstanceOptions) *Instance {
 	ins := &Instance{
 		vm:     vm,
 		module: module,
@@ -193,13 +195,10 @@ func (w *Instance) RegisterFunc(namespace string, funcName string, f interface{}
 	funcType := reflect.TypeOf(f)
 
 	argsNum := funcType.NumIn()
-	if argsNum < 1 {
-		return ErrRegisterArgNum
-	}
 
-	argsKind := make([]*wasmerGo.ValueType, argsNum-1)
-	for i := 1; i < argsNum; i++ {
-		argsKind[i-1] = convertFromGoType(funcType.In(i))
+	argsKind := make([]*wasmerGo.ValueType, argsNum)
+	for i := 0; i < argsNum; i++ {
+		argsKind[i] = convertFromGoType(funcType.In(i))
 	}
 
 	retsNum := funcType.NumOut()
@@ -219,11 +218,11 @@ func (w *Instance) RegisterFunc(namespace string, funcName string, f interface{}
 				}
 			}()
 
-			aa := make([]reflect.Value, 1+len(args))
+			aa := make([]reflect.Value, len(args))
 			aa[0] = reflect.ValueOf(w)
 
 			for i, arg := range args {
-				aa[i+1] = convertToGoTypes(arg)
+				aa[i] = convertToGoTypes(arg)
 			}
 
 			callResult := reflect.ValueOf(f).Call(aa)

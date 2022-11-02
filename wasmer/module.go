@@ -1,3 +1,5 @@
+//go:build wasmer
+
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -14,11 +16,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package wasmer
 
 import (
 	wasmerGo "github.com/wasmerio/wasmer-go/wasmer"
+
 	"mosn.io/proxy-wasm-go-host/proxywasm/common"
 )
 
@@ -30,7 +32,7 @@ type Module struct {
 	rawBytes    []byte
 }
 
-func NewWasmerModule(vm *VM, module *wasmerGo.Module, wasmBytes []byte) *Module {
+func NewModule(vm *VM, module *wasmerGo.Module, wasmBytes []byte) *Module {
 	m := &Module{
 		vm:       vm,
 		module:   module,
@@ -47,7 +49,7 @@ func (w *Module) Init() {
 }
 
 func (w *Module) NewInstance() common.WasmInstance {
-	return NewWasmerInstance(w.vm, w)
+	return NewInstance(w.vm, w)
 }
 
 func (w *Module) GetABINameList() []string {

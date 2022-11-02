@@ -4,6 +4,7 @@ go 1.17
 
 require (
 	github.com/stretchr/testify v1.7.1
+	github.com/tetratelabs/wazero v1.0.0-pre.3
 	github.com/wasmerio/wasmer-go v1.0.4
 )
 

@@ -15,6 +15,40 @@
  * limitations under the License.
  */
 
-package v1
+package wazero
 
-// spec: https://github.com/proxy-wasm/spec/tree/master/abi-versions/vNEXT
+import (
+	wazero "github.com/tetratelabs/wazero"
+
+	"mosn.io/proxy-wasm-go-host/proxywasm/common"
+)
+
+type Module struct {
+	vm          *VM
+	module      wazero.CompiledModule
+	abiNameList []string
+	rawBytes    []byte
+}
+
+func NewModule(vm *VM, module wazero.CompiledModule, wasmBytes []byte) *Module {
+	m := &Module{
+		vm:       vm,
+		module:   module,
+		rawBytes: wasmBytes,
+	}
+
+	m.Init()
+
+	return m
+}
+
+func (w *Module) Init() {
+}
+
+func (w *Module) NewInstance() common.WasmInstance {
+	return NewInstance(w.vm, w)
+}
+
+func (w *Module) GetABINameList() []string {
+	return nil
+}
